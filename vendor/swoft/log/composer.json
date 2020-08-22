@@ -1,0 +1,42 @@
+{
+  "name": "swoft/log",
+  "type": "library",
+  "version": "v2.0.9",
+  "keywords": [
+    "php",
+    "swoole",
+    "swoft",
+    "log",
+    "swoft-log",
+    "monolog"
+  ],
+  "description": "swoft log component",
+  "homepage": "https://github.com/swoft-cloud/swoft-log",
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">=7.1",
+    "monolog/monolog": "^1.24",
+    "toolkit/cli-utils": "^1.0",
+    "swoft/stdlib": "~2.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Swoft\\Log\\": "src/"
+    }
+  },
+  "require-dev": {
+    "swoft/swoole-ide-helper": "dev-master",
+    "phpunit/phpunit": "^7.5"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SwoftTest\\Log\\Unit\\": "test/unit/",
+      "SwoftTest\\Log\\Testing\\": "test/testing/"
+    }
+  },
+  "repositories": {
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit -c phpunit.xml"
+  }
+}

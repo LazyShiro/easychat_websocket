@@ -1,0 +1,38 @@
+{
+  "name": "swoft/serialize",
+  "type": "library",
+  "description": "simple data serializer tool library of the php",
+  "keywords": [
+    "library",
+    "tool",
+    "php"
+  ],
+  "homepage": "https://github.com/swoft-cloud/swoft-serialize",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "inhere",
+      "email": "in.798@qq.com",
+      "homepage": "http://www.yzone.net/"
+    }
+  ],
+  "require": {
+    "php": ">7.1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Swoft\\Serialize\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SwoftTest\\Serialize\\": "test/unit"
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit -c phpunit.xml"
+  }
+}
