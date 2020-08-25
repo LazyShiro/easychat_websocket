@@ -109,4 +109,45 @@ class ChatController
         }
     }
 
+    /**
+     * @MessageMapping("typingMessage")
+     */
+    public function typingMessage(Message $message) : array
+    {
+        try {
+            $data = $message->getData();
+
+            if (!isset($data['friendId']) || empty($data['friendId'])) {
+                return wsReturn(100002);
+            }
+
+            if (!isset($data['content']) || empty($data['content'])) {
+                return wsReturn(300001);
+            }
+
+            $friendId = (int) de($data['friendId']);
+            $content  = removeXSS($data['content']);
+            $fd       = context()->getRequest()->getFd();
+
+            //我的uid
+            $uid = $this->MemoryTable->get(MemoryTable::FD_TO_USER, (string) $fd, 'uid');
+            //朋友的FD列表
+            $friendFdList = $this->memberService->getFdList($friendId);
+            //好友状态
+            $friendStatus = $this->friendService->friendStatus($uid, $friendId);
+
+            //非好友不能互动
+            if ($friendStatus !== 1) {
+                return wsReturn(100008);
+            }
+
+            vdump($friendFdList);
+            Task::co('common', 'sendMessage', [$friendFdList, WsMessage::WS_CHAT_TYPING, wsReturn()]);
+
+            return wsReturn();
+        } catch (WsServerException $exception) {
+            return wsReturn(900006, ['msg' => $exception->getMessage(), 'code' => $exception->getCode()]);
+        }
+    }
+
 }

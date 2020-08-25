@@ -31,7 +31,6 @@ class BeanAspect
      */
     public function before() : void
     {
-        vdump(__METHOD__);
     }
 
 }

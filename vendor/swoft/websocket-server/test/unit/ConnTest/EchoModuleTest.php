@@ -22,7 +22,6 @@ class EchoModuleTest extends RealConnTestCase
 
         /** @var Frame $frame */
         $frame = $client->recv(1.0);
-        // \vdump($frame);
         $this->assertSame(1, $frame->opcode);
         $text = $frame->data;
         $this->assertStringContainsString('Opened, welcome to /ws-test/echo!', $text);

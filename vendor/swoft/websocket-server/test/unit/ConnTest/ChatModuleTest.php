@@ -38,7 +38,6 @@ class ChatModuleTest extends RealConnTestCase
 
         /** @var Frame $frame */
         $frame = $client->recv(1.0);
-        // \vdump($frame);
         $this->assertSame(1, $frame->opcode);
         $this->assertSame(ChatModule::class . '::onOpen', $frame->data);
 

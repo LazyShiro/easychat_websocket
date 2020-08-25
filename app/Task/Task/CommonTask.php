@@ -31,6 +31,9 @@ class CommonTask
      */
     public function sendMessage(array $userList, string $cmd, array $data)
     {
+        vdump($userList);
+        vdump($cmd);
+        vdump($data);
         if (!empty($userList)) {
             foreach ($userList as $value) {
                 server()->sendTo($value, json_encode(['cmd' => $cmd, 'data' => $data]));

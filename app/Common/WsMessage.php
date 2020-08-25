@@ -21,5 +21,6 @@ class WsMessage
     const WS_FRIEND_FETTLE = 'receipt.friendFettle';
     //聊天
     const WS_CHAT_RECEIVE = 'receipt.chatReceive';
+    const WS_CHAT_TYPING  = 'receipt.typingMessage';
 
 }

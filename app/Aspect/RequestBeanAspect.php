@@ -37,8 +37,6 @@ class RequestBeanAspect
         $id = (string) Co::tid();
         /** @var RequestBean $rb */
         $rb = BF::getRequestBean('requestBean', $id);
-
-        vdump(__METHOD__, $rb->temp);
     }
 
     /**
@@ -49,8 +47,6 @@ class RequestBeanAspect
         $id = (string) Co::tid();
         /** @var RequestBean $rb */
         $rb = BF::getRequestBean('requestBean', $id);
-
-        vdump(__METHOD__, $rb->temp);
     }
 
 }

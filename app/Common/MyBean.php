@@ -24,8 +24,6 @@ class MyBean
 {
     public function myMethod() : array
     {
-        vdump(__METHOD__);
-
         return ['hi'];
     }
 
