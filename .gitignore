@@ -2,3 +2,4 @@
 .github
 runtime
 .phpstorm.meta.php
+.env
