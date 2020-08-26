@@ -10,8 +10,7 @@ easychat_websocket
 ## 使用
 
 * cp .env.example .env
-* mkdir runtime
-* chmod 777 runtime
+* php bin/swoft entity:create -d -y
 * php bin/swoft ws:start -d
 * [简单聊天室](https://github.com/LazyShiro/easychat)项目的WS服务支持
 
