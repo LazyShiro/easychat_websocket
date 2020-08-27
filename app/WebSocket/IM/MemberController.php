@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types = 1);
 
 namespace App\WebSocket\IM;
 
@@ -8,6 +10,7 @@ use App\Helper\MemoryTable;
 use App\Model\Dao\MemberDao;
 use App\Model\Service\FriendService;
 use App\Model\Service\MemberService;
+use Swoft\Task\Task;
 use Swoft\WebSocket\Server\Exception\WsServerException;
 use Swoft\WebSocket\Server\Message\Message;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsController;
@@ -90,6 +93,43 @@ class MemberController
 
             $uid = $MemoryTable->get(MemoryTable::FD_TO_USER, (string) $fd, 'uid');
             $memberService->userChangeFettle($uid, $fettle);
+
+            return wsReturn();
+        } catch (WsServerException $exception) {
+            return wsReturn(900006, ['msg' => $exception->getMessage(), 'code' => $exception->getCode()]);
+        }
+    }
+
+    /**
+     * 更换头像
+     * @MessageMapping("changeAvatar")
+     */
+    public function changeAvatar(Message $message) : array
+    {
+        try {
+            $data = $message->getData();
+
+            if (!isset($data['avatar']) || empty($data['avatar'])) {
+                return wsReturn(100010);
+            }
+
+            $avatar = removeXSS($data['avatar']);
+            $fd     = context()->getRequest()->getFd();
+
+            /** @var MemoryTable $MemoryTable */
+            $MemoryTable = bean('App\Helper\MemoryTable');
+            /** @var FriendService $friendService */
+            $friendService = bean('App\Model\Service\FriendService');
+
+            $uid = $MemoryTable->get(MemoryTable::FD_TO_USER, (string) $fd, 'uid');
+
+            $friendFdList = $friendService->getFdList($uid);
+
+            Task::co('common', 'sendMessage', [
+                $friendFdList,
+                WsMessage::WS_FRIEND_AVATAR,
+                wsReturn(["id" => $uid, "avatar" => $avatar]),
+            ]);
 
             return wsReturn();
         } catch (WsServerException $exception) {

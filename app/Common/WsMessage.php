@@ -19,6 +19,7 @@ class WsMessage
     const WS_FRIEND_APPLY  = 'receipt.friendApply';
     const WS_FRIEND_ACCEPT = 'receipt.friendAccept';
     const WS_FRIEND_FETTLE = 'receipt.friendFettle';
+    const WS_FRIEND_AVATAR = 'receipt.friendAvatar';
     //聊天
     const WS_CHAT_RECEIVE = 'receipt.chatReceive';
     const WS_CHAT_TYPING  = 'receipt.typingMessage';
