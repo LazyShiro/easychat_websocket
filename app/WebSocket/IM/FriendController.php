@@ -65,7 +65,11 @@ class FriendController
             //我的uid
             $uid = $MemoryTable->get(MemoryTable::FD_TO_USER, (string) $fd, 'uid');
             //朋友的FD
-            $friendFd     = $MemoryTable->get(MemoryTable::USER_TO_FD, (string) $friendId, 'fdList');
+	    $friendFd     = $MemoryTable->get(MemoryTable::USER_TO_FD, (string) $friendId, 'fdList');
+	    if(!$friendFd){
+	        return wsReturn(100011);
+	    }
+
             $friendFdList = json_decode($friendFd, TRUE);
 
             //不能添加自己为好友
