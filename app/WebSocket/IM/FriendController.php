@@ -25,7 +25,7 @@ class FriendController
     /**
      * @MessageMapping("addFriend")
      */
-    public function addFriend(Message $message) : array
+    public function addFriend(Message $message): array
     {
         try {
             $data = $message->getData();
@@ -65,10 +65,10 @@ class FriendController
             //我的uid
             $uid = $MemoryTable->get(MemoryTable::FD_TO_USER, (string) $fd, 'uid');
             //朋友的FD
-	    $friendFd     = $MemoryTable->get(MemoryTable::USER_TO_FD, (string) $friendId, 'fdList');
-	    if(!$friendFd){
-	        return wsReturn(100011);
-	    }
+            $friendFd = $MemoryTable->get(MemoryTable::USER_TO_FD, (string) $friendId, 'fdList');
+            if (!$friendFd) {
+                return wsReturn(100011);
+            }
 
             $friendFdList = json_decode($friendFd, TRUE);
 
@@ -93,6 +93,11 @@ class FriendController
                 return wsReturn(100005);
             }
 
+            $friendApplyInfo = $friendLogModel->getRecentApplyData($friendId, $uid, ['id', 'groupid']);
+            if (!empty($friendApplyInfo)) {
+                return wsReturn(100012);
+            }
+
             //添加好友（申请）
             $friendResult = (int) $friendModel->addFriend($uid, $friendId, $groupId);
             //新增好友申请记录
@@ -114,7 +119,7 @@ class FriendController
     /**
      * @MessageMapping("acceptFriend")
      */
-    public function acceptFriend(Message $message) : array
+    public function acceptFriend(Message $message): array
     {
         try {
             $data = $message->getData();
