@@ -93,7 +93,7 @@ class FriendController
                 return wsReturn(100005);
             }
 
-            $friendApplyInfo = $friendLogModel->getRecentApplyData($friendId, $uid, ['id', 'groupid']);
+            $friendApplyInfo = $friendLogModel->getRecentApplyData($uid, $friendId, ['id', 'groupid']);
             if (!empty($friendApplyInfo)) {
                 return wsReturn(100012);
             }
